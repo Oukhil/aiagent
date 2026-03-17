@@ -24,17 +24,17 @@ def run_python_file(working_directory, file_path, args=None):
         
         cp_obj = subprocess.run(command, cwd=abs_dir, capture_output=True, text=True, timeout=30)
 
-        result_str = ""
+        result_len = []
         if cp_obj.returncode:
-            result_str += f"Process exited with code {cp_obj.returncode}\n"
+            result_len.append(f"Process exited with code {cp_obj.returncode}")
         if cp_obj.stdout:
-            result_str += f"STDOUT:\n{cp_obj.stdout}\n"
+            result_len.append(f"STDOUT:\n{cp_obj.stdout}")
         if cp_obj.stderr:
-            result_str += f"STDERR:\n{cp_obj.stderr}\n"
+            result_len.append(f"STDERR:\n{cp_obj.stderr}")
         if not cp_obj.stdout and not cp_obj.stderr:
-            result_str += "No output produced"
+            result_len.append("No output produced")
         
-        return result_str
+        return "\n".join(result_len)
 
     except Exception as e:
         return f"Error: {e}"

@@ -15,14 +15,14 @@ def get_files_info(working_directory, directory="."):
             return f'Error: "{directory}" is not a directory'
         dir_list = os.listdir(target_dir)
 
-        dir_items = ''
+        dir_items = []
         for item in dir_list:
             item_dir = os.path.join(target_dir, item)
             item_size = os.path.getsize(item_dir)
             item_status = os.path.isdir(item_dir)
-            dir_items += f'- {item}: file_size={item_size} bytes, is_dir={item_status}\n'
+            dir_items.append(f'- {item}: file_size={item_size} bytes, is_dir={item_status}')
         
-        return dir_items
+        return "\n".join(dir_items)
     
     except Exception as e:
         return f"Error: {e}"
